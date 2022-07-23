@@ -10,7 +10,7 @@ from services import *
 
 class MplCanvas(FigureCanvasQTAgg):
 
-    def __init__(self, parent=None, width=50, height=40, dpi=1100):
+    def __init__(self, width=50, height=40, dpi=1100):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
         super(MplCanvas, self).__init__(fig)
@@ -188,7 +188,7 @@ class UiMainWindow(QMainWindow):
         self.flag = False
         self.points = []
 
-        self.sc_1 = MplCanvas(self, width=5, height=4, dpi=80)
+        self.sc_1 = MplCanvas(width=5, height=4, dpi=80)
         toolbar_1 = NavigationToolbar(self.sc_1, self)
         layout_1 = QtWidgets.QVBoxLayout()
         layout_1.addWidget(toolbar_1)
@@ -198,7 +198,7 @@ class UiMainWindow(QMainWindow):
         self.sc_1.axes.grid()
         self.widget.setLayout(layout_1)
 
-        self.sc_2 = MplCanvas(self, width=5, height=4, dpi=100)
+        self.sc_2 = MplCanvas(width=5, height=4, dpi=100)
         toolbar_2 = NavigationToolbar(self.sc_2, self)
         layout_2 = QtWidgets.QVBoxLayout()
         layout_2.addWidget(toolbar_2)
@@ -283,9 +283,9 @@ class UiMainWindow(QMainWindow):
         self.spline_button.clicked.connect(lambda: self.make_spline())
         self.change_button.clicked.connect(lambda: self.change_area())
         self.calculate_button.clicked.connect(lambda: self.calculate())
-        self.cut_button.clicked.connect(lambda: self.clk())
+        self.cut_button.clicked.connect(lambda: self.cut_graph())
 
-    def clk(self):
+    def cut_graph(self):
         self.cancel_button.setEnabled(True)
 
         self.sc_1.axes.clear()
@@ -319,7 +319,7 @@ class UiMainWindow(QMainWindow):
                 self.sc_1.axes.set_ylabel("I")
                 self.sc_1.draw()
 
-                self.visual_controler(True, [2, 3])
+                self.visual_controler(True, [2, 3, 7])
             else:
                 QMessageBox.critical(self, "Ошибка ", "Выход из дозволенных значений в разделе \"Узлы сплайна\"",
                                      QMessageBox.Ok)
@@ -366,9 +366,7 @@ class UiMainWindow(QMainWindow):
                 f = self.ser.new_sequence(self.md, self.md.expired.x)
                 print(len(f))
                 lq = self.ser.calculate_between(f, self.md)
-                # lq = self.ser.sd(self.md)
-                # print(lq)
-                key = self.search_2_num(lq)
+                key = self.ser.search_min_map_num(lq)
 
                 self.md.b_a = key[0]
                 self.md.b_c = key[1]
@@ -389,7 +387,7 @@ class UiMainWindow(QMainWindow):
                 self.label_16.setText(str(self.md.b_c))
                 self.label_20.setText(str(round(self.md.B, 1)))
                 self.label_23.setText(str(round(self.md.I_cor, 4)))
-                self.label_27.setText(str(round(self.ser.calculate_deviation(self.md), 2)))
+                self.label_27.setText(str(round(self.ser.calculate_deviation(self.md), 3)))
             else:
                 QMessageBox.critical(self, "Ошибка ",
                                      "Выход из диапозона значений в разделе \"Интервал дифференцирования\"",
@@ -397,15 +395,6 @@ class UiMainWindow(QMainWindow):
         except ValueError:
             QMessageBox.critical(self, "Ошибка ", "Некорректные данные в разделе \"Интервал дифференцирования\"",
                                  QMessageBox.Ok)
-
-    def search_2_num(self, lq):
-        key = ""
-        value = 9999
-        for i in lq:
-            if lq[i] <= value:
-                value = lq[i]
-                key = i
-        return key
 
     def click_radio_b(self):
         status = False
@@ -435,7 +424,8 @@ class UiMainWindow(QMainWindow):
 
     def ex_click(self):
         self.flag = False
-        self.visual_controler(True, [0, 2, 3, 4, 6, 8, 9])
+        self.cancel_button.setEnabled(False)
+        self.visual_controler(True, [0, 1, 2, 3, 4, 6, 7, 8, 9])
 
     def click_for_graph(self, event):
         if self.flag:
@@ -479,7 +469,7 @@ class UiMainWindow(QMainWindow):
             self.widgets.get(wid).setEnabled(state)
 
     def open_file(self):
-        self.visual_controler(False, [1, 4])
+        self.visual_controler(False, [4])
 
         path = QFileDialog.getOpenFileName()
         if path[0] == '':

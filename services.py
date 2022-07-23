@@ -145,3 +145,13 @@ class WindowService:
         for i in range(len(list_1) - 1):
             result_list.append(abs(list_1[i] - list_2[i]))
         return result_list
+
+
+    def search_min_map_num(self, lq):
+        key = ""
+        value = 9999
+        for i in lq:
+            if lq[i] <= value:
+                value = lq[i]
+                key = i
+        return key
