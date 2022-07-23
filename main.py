@@ -1,8 +1,5 @@
 from PyQt5 import QtWidgets
 
-#todo образка(исклячение)
-#todo пустой файл
-
 from table import UiMainWindow
 
 if __name__ == "__main__":

@@ -36,9 +36,9 @@ class UiMainWindow(QMainWindow):
         self.lineEdit_2 = QtWidgets.QLineEdit(self.central_widget)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 2, 2, 1, 5)
-        self.pushButton_5 = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.gridLayout.addWidget(self.pushButton_5, 4, 2, 1, 4)
+        self.spline_button = QtWidgets.QPushButton(self.central_widget)
+        self.spline_button.setObjectName("pushButton_5")
+        self.gridLayout.addWidget(self.spline_button, 4, 2, 1, 4)
         self.label_3 = QtWidgets.QLabel(self.central_widget)
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 2, 7, 1, 6)
@@ -47,17 +47,17 @@ class UiMainWindow(QMainWindow):
         self.gridLayout.addWidget(self.lineEdit_3, 6, 2, 1, 5)
         spacer_item = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacer_item, 8, 1, 1, 1)
-        self.pushButton_4 = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.gridLayout.addWidget(self.pushButton_4, 7, 2, 1, 1)
+        self.calculate_button = QtWidgets.QPushButton(self.central_widget)
+        self.calculate_button.setObjectName("pushButton_4")
+        self.gridLayout.addWidget(self.calculate_button, 7, 2, 1, 1)
         self.line = QtWidgets.QFrame(self.central_widget)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.gridLayout.addWidget(self.line, 9, 1, 1, 12)
-        self.pushButton_2 = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.gridLayout.addWidget(self.pushButton_2, 1, 5, 1, 3)
+        self.cancel_button = QtWidgets.QPushButton(self.central_widget)
+        self.cancel_button.setObjectName("pushButton_2")
+        self.gridLayout.addWidget(self.cancel_button, 1, 5, 1, 3)
         self.label_30 = QtWidgets.QLabel(self.central_widget)
         self.label_30.setObjectName("label_30")
         self.gridLayout.addWidget(self.label_30, 6, 7, 1, 3)
@@ -89,12 +89,12 @@ class UiMainWindow(QMainWindow):
         self.lineEdit = QtWidgets.QLineEdit(self.central_widget)
         self.lineEdit.setObjectName("lineEdit")
         self.gridLayout.addWidget(self.lineEdit, 3, 2, 1, 5)
-        self.pushButton_3 = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.gridLayout.addWidget(self.pushButton_3, 0, 2, 1, 3)
-        self.pushButton = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 1, 2, 1, 3)
+        self.open_button = QtWidgets.QPushButton(self.central_widget)
+        self.open_button.setObjectName("pushButton_3")
+        self.gridLayout.addWidget(self.open_button, 0, 2, 1, 3)
+        self.cut_button = QtWidgets.QPushButton(self.central_widget)
+        self.cut_button.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.cut_button, 1, 2, 1, 3)
         self.label_21 = QtWidgets.QLabel(self.central_widget)
         self.label_21.setObjectName("label_21")
         self.gridLayout.addWidget(self.label_21, 15, 10, 1, 1)
@@ -159,9 +159,9 @@ class UiMainWindow(QMainWindow):
         self.label_26 = QtWidgets.QLabel(self.central_widget)
         self.label_26.setObjectName("label_26")
         self.gridLayout.addWidget(self.label_26, 17, 8, 1, 1)
-        self.radioButton = QtWidgets.QRadioButton(self.central_widget)
-        self.radioButton.setObjectName("radioButton")
-        self.gridLayout.addWidget(self.radioButton, 5, 2, 1, 1)
+        self.spline_display_radio_button = QtWidgets.QRadioButton(self.central_widget)
+        self.spline_display_radio_button.setObjectName("radioButton")
+        self.gridLayout.addWidget(self.spline_display_radio_button, 5, 2, 1, 1)
         self.label_28 = QtWidgets.QLabel(self.central_widget)
         self.label_28.setObjectName("label_28")
         self.gridLayout.addWidget(self.label_28, 17, 10, 1, 1)
@@ -181,9 +181,9 @@ class UiMainWindow(QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
-        self.pushButton_6 = QtWidgets.QPushButton(self.central_widget)
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.gridLayout.addWidget(self.pushButton_6, 1, 8, 1, 1)
+        self.change_button = QtWidgets.QPushButton(self.central_widget)
+        self.change_button.setObjectName("pushButton_6")
+        self.gridLayout.addWidget(self.change_button, 1, 8, 1, 1)
 
         self.flag = False
         self.points = []
@@ -208,6 +208,17 @@ class UiMainWindow(QMainWindow):
         self.sc_2.axes.grid()
         self.widget_2.setLayout(layout_2)
 
+        self.widgets = {0: self.lineEdit,
+                        1: self.lineEdit_2,
+                        2: self.lineEdit_3,
+                        3: self.spline_display_radio_button,
+                        4: self.cut_button,
+                        5: self.cancel_button,
+                        6: self.open_button,
+                        7: self.calculate_button,
+                        8: self.spline_button,
+                        9: self.change_button}
+
         self.ser = WindowService()
         self.md = GraphModel()
         self.butt_func()
@@ -220,11 +231,11 @@ class UiMainWindow(QMainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_32.setText(_translate("MainWindow", "Вы работаете с файлом"))
         self.lineEdit_2.setText(_translate("MainWindow", "34.54"))
-        self.pushButton_5.setText(_translate("MainWindow", "Сделать сплайн"))
+        self.spline_button.setText(_translate("MainWindow", "Сделать сплайн"))
         self.label_3.setText(_translate("MainWindow", "Площадь электрода см^2  [0.01...500.0]"))
         self.lineEdit_3.setText(_translate("MainWindow", "3"))
-        self.pushButton_4.setText(_translate("MainWindow", "Рассчитать"))
-        self.pushButton_2.setText(_translate("MainWindow", "Сброс обрезки"))
+        self.calculate_button.setText(_translate("MainWindow", "Рассчитать"))
+        self.cancel_button.setText(_translate("MainWindow", "Сброс обрезки"))
         self.label_30.setText(_translate("MainWindow", "Интервал дифференцирования, mV  [1...10]"))
         self.label_2.setText(_translate("MainWindow", "Кол-во узлов сплайна  [5...100]"))
         self.label_10.setText(_translate("MainWindow", "0"))
@@ -235,8 +246,8 @@ class UiMainWindow(QMainWindow):
         self.label_17.setText(_translate("MainWindow", "mV"))
         self.label_8.setText(_translate("MainWindow", "mV"))
         self.lineEdit.setText(_translate("MainWindow", "10"))
-        self.pushButton_3.setText(_translate("MainWindow", "Открыть файл"))
-        self.pushButton.setText(_translate("MainWindow", "Обрезать"))
+        self.open_button.setText(_translate("MainWindow", "Открыть файл"))
+        self.cut_button.setText(_translate("MainWindow", "Обрезать"))
         self.label_21.setText(_translate("MainWindow", "mv"))
         self.label_6.setText(_translate("MainWindow", "E_cor ="))
         self.label_11.setText(_translate("MainWindow", "Ω*см^2"))
@@ -250,20 +261,13 @@ class UiMainWindow(QMainWindow):
         self.label.setText(_translate("MainWindow", "OFF"))
         self.label_29.setText(_translate("MainWindow", "OFF"))
         self.label_26.setText(_translate("MainWindow", "Относ.отклонение"))
-        self.radioButton.setText(_translate("MainWindow", "Сплайн"))
+        self.spline_display_radio_button.setText(_translate("MainWindow", "Сплайн"))
         self.label_28.setText(_translate("MainWindow", "%"))
         self.label_27.setText(_translate("MainWindow", "0"))
         self.label_7.setText(_translate("MainWindow", "0"))
-        self.pushButton_6.setText(_translate("MainWindow", "Изменить площадь"))
+        self.change_button.setText(_translate("MainWindow", "Изменить площадь"))
 
-        self.pushButton.setEnabled(False)
-        self.pushButton_2.setEnabled(False)
-        self.lineEdit_3.setEnabled(False)
-        self.lineEdit.setEnabled(False)
-        self.radioButton.setEnabled(False)
-        self.pushButton_5.setEnabled(False)
-        self.pushButton_4.setEnabled(False)
-        self.pushButton_6.setEnabled(False)
+        self.visual_controler(False, [0, 2, 3, 4, 5, 7, 8, 9])
 
         self.label_29.setStyleSheet("color: rgb(255, 0, 0)")
         self.label_29.setText("OFF")
@@ -273,16 +277,17 @@ class UiMainWindow(QMainWindow):
 
     def butt_func(self):
         self.sc_1.figure.canvas.mpl_connect('button_press_event', self.click_for_graph)
-        self.pushButton_2.clicked.connect(lambda: self.ex_click())
-        self.pushButton_3.clicked.connect(lambda: self.open_file())
-        self.radioButton.clicked.connect(lambda: self.click_radio_b())
-        self.pushButton_5.clicked.connect(lambda: self.make_spline())
-        self.pushButton_6.clicked.connect(lambda: self.change_area())
-        self.pushButton_4.clicked.connect(lambda: self.calculate())
-        self.pushButton.clicked.connect(lambda: self.clk())
+        self.cancel_button.clicked.connect(lambda: self.ex_click())
+        self.open_button.clicked.connect(lambda: self.open_file())
+        self.spline_display_radio_button.clicked.connect(lambda: self.click_radio_b())
+        self.spline_button.clicked.connect(lambda: self.make_spline())
+        self.change_button.clicked.connect(lambda: self.change_area())
+        self.calculate_button.clicked.connect(lambda: self.calculate())
+        self.cut_button.clicked.connect(lambda: self.clk())
 
     def clk(self):
-        self.pushButton_2.setEnabled(True)
+        self.cancel_button.setEnabled(True)
+
         self.sc_1.axes.clear()
         self.sc_1.axes.plot(self.md.adjusted.x, self.md.adjusted.y, label="Исходный")
         self.sc_1.axes.legend(loc='lower right')
@@ -293,7 +298,8 @@ class UiMainWindow(QMainWindow):
         self.sc_1.axes.set_xlabel("E")
         self.sc_1.axes.set_ylabel("I")
         self.sc_1.draw()
-        self.visual_controler(False)
+
+        self.visual_controler(False, [0, 1, 2, 3, 4, 6, 7, 8, 9])
         self.points = []
         self.flag = True
 
@@ -302,7 +308,7 @@ class UiMainWindow(QMainWindow):
             num = int(self.lineEdit.text())
             if num in range(5, 101):
                 self.ser.spline(self.md, num)
-                self.radioButton.setChecked(True)
+                self.spline_display_radio_button.setChecked(True)
                 self.label.setStyleSheet("color: rgb(0, 255, 0)")
                 self.label.setText("ON_")
                 self.sc_1.axes.clear()
@@ -313,9 +319,7 @@ class UiMainWindow(QMainWindow):
                 self.sc_1.axes.set_ylabel("I")
                 self.sc_1.draw()
 
-                self.radioButton.setEnabled(True)
-                self.lineEdit_3.setEnabled(True)
-                self.pushButton_4.setEnabled(True)
+                self.visual_controler(True, [2, 3])
             else:
                 QMessageBox.critical(self, "Ошибка ", "Выход из дозволенных значений в разделе \"Узлы сплайна\"",
                                      QMessageBox.Ok)
@@ -359,7 +363,7 @@ class UiMainWindow(QMainWindow):
                 self.sc_2.axes.plot(self.md.expired.x, self.md.expired.y, label="Эксперимент")
                 self.sc_2.draw()
 
-                f = self.ser.new_seque(self.md, self.md.expired.x)
+                f = self.ser.new_sequence(self.md, self.md.expired.x)
                 print(len(f))
                 lq = self.ser.calculate_between(f, self.md)
                 # lq = self.ser.sd(self.md)
@@ -407,7 +411,7 @@ class UiMainWindow(QMainWindow):
         status = False
         if len(self.md.spline.x) > 0:
             self.sc_1.axes.clear()
-            if self.radioButton.isChecked():
+            if self.spline_display_radio_button.isChecked():
                 self.sc_1.axes.plot(self.md.spline.x, self.md.spline.y, label="Сплайн")
                 self.sc_1.axes.legend(loc='lower right')
                 self.label.setStyleSheet("color: rgb(0, 255, 0)")
@@ -424,15 +428,14 @@ class UiMainWindow(QMainWindow):
             self.sc_1.draw()
             status = True
         else:
-            self.radioButton.setChecked(False)
+            self.spline_display_radio_button.setChecked(False)
             QMessageBox.critical(self, "Ошибка ", "Сплайн не выполнен!",
                                  QMessageBox.Ok)
         return status
 
     def ex_click(self):
         self.flag = False
-        self.pushButton_2.setEnabled(False)
-        self.visual_controler(True)
+        self.visual_controler(True, [0, 2, 3, 4, 6, 8, 9])
 
     def click_for_graph(self, event):
         if self.flag:
@@ -469,21 +472,14 @@ class UiMainWindow(QMainWindow):
                 QMessageBox.critical(self, "Ошибка ", "Некорректный выбор точек",
                                      QMessageBox.Ok)
 
-    def visual_controler(self, state):
-        self.lineEdit_2.setEnabled(state)
-        self.lineEdit_3.setEnabled(state)
-        self.lineEdit.setEnabled(state)
-        self.radioButton.setEnabled(state)
-        self.pushButton_5.setEnabled(state)
-        self.pushButton_3.setEnabled(state)
-        self.pushButton.setEnabled(state)
-        self.pushButton_4.setEnabled(state)
-        self.pushButton_6.setEnabled(state)
+    def visual_controler(self, state, widget_nums=None):
+        if widget_nums is None:
+            widget_nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        for wid in widget_nums:
+            self.widgets.get(wid).setEnabled(state)
 
     def open_file(self):
-        self.lineEdit_3.setEnabled(False)
-        self.radioButton.setEnabled(False)
-        self.pushButton_4.setEnabled(False)
+        self.visual_controler(False, [1, 4])
 
         path = QFileDialog.getOpenFileName()
         if path[0] == '':
@@ -503,10 +499,8 @@ class UiMainWindow(QMainWindow):
                         self.sc_1.axes.grid()
                         self.sc_1.draw()
 
-                        self.pushButton.setEnabled(True)
-                        self.lineEdit.setEnabled(True)
-                        self.pushButton_5.setEnabled(True)
-                        self.pushButton_6.setEnabled(True)
+                        self.visual_controler(True, [4, 2, 0, 8, 9])
+
                         self.label_33.setText(self.ser.get_file_name(path[0]))
                         self.label_32.setText("Вы работаете с файлом")
                         self.label_29.setStyleSheet("color: rgb(0, 255, 0)")
