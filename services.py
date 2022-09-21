@@ -90,13 +90,30 @@ class WindowService:
 
     def calc_d(self, graph: GraphModel):
         num = int(len(graph.adjusted.x)) - 1
+        num1 = int(len(graph.adjusted.x) / 2)
+        num2 = 1
         x = graph.expired.x[num]
         y = graph.expired.y[num]
+
+        x1 = graph.expired.x[num1]
+        y1 = graph.expired.y[num1]
+
+        x2 = graph.expired.x[num2]
+        y2 = graph.expired.y[num2]
+
+        y1_err = abs(y) * 0.99
+        y2_err = abs(y2) * 0.99
+
         for i in range(4, 1001):
             for j in range(4, 1001):
                 ans = abs(self.expression(i / 4, j / 4, x))
-                if abs(y) * 0.9999 < ans < abs(y):
+                # ans1 = abs(self.expression(i / 4, j / 4, x1))
+                ans2 = abs(self.expression(i / 4, j / 4, x2))
+
+                if (y1_err < ans < abs(y)) and (
+                        y2_err < ans2 < abs(y2)):
                     graph.b.append((i / 4, j / 4))
+
         graph.X_old = x
         graph.Y_old = y
 
@@ -145,7 +162,6 @@ class WindowService:
         for i in range(len(list_1) - 1):
             result_list.append(abs(list_1[i] - list_2[i]))
         return result_list
-
 
     def search_min_map_num(self, lq):
         key = ""
