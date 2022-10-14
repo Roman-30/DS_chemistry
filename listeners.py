@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from Thread import CustomThread
 from services import *
 
 
@@ -68,7 +69,6 @@ class ButtonListeners:
                 perform_area_correction(s, self.mw.md)
                 self.mw.sc_1.axes.plot(self.mw.md.adjusted.x, self.mw.md.adjusted.y, label="Исходный")
                 self.mw.sc_1.axes.legend(loc='lower right')
-                self.mw.sc_1.axes.legend(loc='lower right')
                 self.mw.sc_1.axes.set_xlabel("E")
                 self.mw.sc_1.axes.set_ylabel("I")
                 self.mw.sc_1.axes.grid()
@@ -87,7 +87,21 @@ class ButtonListeners:
             if num in range(1, 11):
                 self.mw.md.derivative = calculate_point_derivative(self.mw.md, num)
                 self.mw.md.expired = calculate_final_graph(self.mw.md)
-                self.mw.md.b = calc_d(self.mw.md.expired.x, self.mw.md.expired.y)
+
+                x = self.mw.md.expired.x
+                y = self.mw.md.expired.y
+
+                arr1 = []
+                arr2 = []
+
+                th1 = CustomThread(4, 500, arr1, x, y)
+                th2 = CustomThread(500, 1001, arr2, x, y)
+
+                th1.run()
+                th2.run()
+
+                self.mw.md.b = arr1 + arr2
+
                 self.mw.sc_2.axes.clear()
                 self.mw.sc_2.axes.plot(self.mw.md.expired.x, self.mw.md.expired.y, label="Эксперимент")
                 self.mw.sc_2.draw()

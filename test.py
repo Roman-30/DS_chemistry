@@ -1,22 +1,6 @@
-from threading import Thread
-from time import sleep
+import numpy as np
 
+arr1 = [(1, 2), (3, 4, 5)]
+arr2 = [(6, 7, 8), (9, 10)]
 
-class CustomThread(Thread):
-    def __init__(self, limit):
-        Thread.__init__(self)
-        self._limit = limit
-
-    def run(self):
-        for i in range(10000000):
-            inw = i * 0.001
-        print(self._limit)
-
-
-cth = CustomThread(0)
-cth1 = CustomThread(1)
-cth2 = CustomThread(2)
-cth.start()
-cth1.start()
-cth2.start()
-
+print(arr1 + arr2)
