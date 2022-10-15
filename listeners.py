@@ -1,3 +1,5 @@
+import time
+
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Thread import CustomThread
@@ -70,6 +72,8 @@ class ButtonListeners:
             self.mw.md.E_cor = calculate_E_corrosivity(self.mw.md)
             num = int(self.mw.lineEdit_3.text())
             if num in range(1, 11):
+                self.mw.calculate_button.setEnabled(False)
+
                 self.mw.md.derivative = calculate_point_derivative(self.mw.md, num)
                 self.mw.md.expired = calculate_final_graph(self.mw.md)
 
@@ -120,6 +124,9 @@ class ButtonListeners:
                 self.mw.label_20.setText(str(round(self.mw.md.B, 1)))
                 self.mw.label_23.setText(str(round(self.mw.md.I_cor, 4)))
                 self.mw.label_27.setText(str(round(calculate_deviation(self.mw.md), 3)))
+
+                self.mw.calculate_button.setEnabled(True)
+
             else:
                 QMessageBox.critical(self.mw, "Ошибка ",
                                      "Выход из диапозона значений в разделе \"Интервал дифференцирования\"",
