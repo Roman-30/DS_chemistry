@@ -24,6 +24,17 @@ def perform_area_correction(s, graph: GraphModel):
     return Graph(graph.input.x, y_correction)
 
 
+def draw_graph(sc_i, x, y, label, l_x, l_y):
+    sc_i.axes.clear()
+    sc_i.axes.plot(x, y, label=label)
+    sc_i.axes.legend(loc='lower right')
+    sc_i.axes.set_xlabel(l_x)
+    sc_i.axes.set_ylabel(l_y)
+    sc_i.axes.grid()
+    sc_i.draw()
+    sc_i.fig.tight_layout()
+
+
 def get_file_name(file_path):
     line = ""
     for i in range(len(file_path) - 1, 0, -1):
@@ -98,31 +109,6 @@ def calculate_point_derivative(graph: GraphModel, interval):
     dl_e = x[right] - x[left]
     dl_i = y[right] - y[left]
     return dl_e / dl_i
-
-
-def calc_d(e_x, e_y):
-    cur_box = []
-    num = e_x.shape[0] - 1
-    num2 = 1
-
-    x = e_x[num]
-    y = e_y[num]
-
-    x2 = e_x[num2]
-    y2 = e_y[num2]
-
-    y1_err = abs(y) * 0.99
-    y2_err = abs(y2) * 0.99
-
-    for i in range(4, 1001):
-        for j in range(4, 1001):
-            ans = abs(expression(i / 4, j / 4, x))
-            ans2 = abs(expression(i / 4, j / 4, x2))
-
-            if (y1_err < ans < abs(y)) and (
-                    y2_err < ans2 < abs(y2)):
-                cur_box.append((i / 4, j / 4))
-    return cur_box
 
 
 def calculate_between(m, graph: GraphModel):

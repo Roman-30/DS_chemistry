@@ -1,20 +1,20 @@
 from PyQt5 import QtWidgets
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from Canvas import *
 from listeners import ButtonListeners
 from services import *
+from ui_project_chemistry import *
 
 
-class UiMainWindow(QMainWindow):
+class UiMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super().__init__()
-        uic.loadUi('project_chemistry.ui', self)
+        super(UiMainWindow, self).__init__()
+        self.setupUi(self)
         self.setMinimumSize(900, 600)
         self.flag = False
         self.points = []
+
         self.sc_1 = MplCanvas(dpi=80)
         toolbar_1 = NavigationToolbar(self.sc_1, self)
         layout_1 = QtWidgets.QVBoxLayout()
@@ -23,6 +23,7 @@ class UiMainWindow(QMainWindow):
         self.sc_1.axes.set_xlabel("E")
         self.sc_1.axes.set_ylabel("I")
         self.sc_1.axes.grid()
+        self.sc_1.fig.tight_layout()
         self.widget.setLayout(layout_1)
 
         self.sc_2 = MplCanvas(width=5, height=4, dpi=100)
@@ -33,6 +34,7 @@ class UiMainWindow(QMainWindow):
         self.sc_2.axes.set_xlabel("ΔE")
         self.sc_2.axes.set_ylabel("Y = 2.3*Rp*i")
         self.sc_2.axes.grid()
+        self.sc_2.fig.tight_layout()
         self.widget_2.setLayout(layout_2)
 
         self.widgets = {0: self.lineEdit,

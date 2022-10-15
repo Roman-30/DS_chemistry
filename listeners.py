@@ -21,17 +21,10 @@ class ButtonListeners:
 
     def cut_graph(self):
         self.mw.cancel_button.setEnabled(True)
-
-        self.mw.sc_1.axes.clear()
-        self.mw.sc_1.axes.plot(self.mw.md.adjusted.x, self.mw.md.adjusted.y, label="Исходный")
-        self.mw.sc_1.axes.legend(loc='lower right')
-        self.mw.label.setStyleSheet("color: rgb(255, 0, 0)")
         self.mw.label.setText("OFF")
-        self.mw.sc_1.axes.grid()
-        self.mw.sc_1.axes.legend(loc='lower right')
-        self.mw.sc_1.axes.set_xlabel("E")
-        self.mw.sc_1.axes.set_ylabel("I")
-        self.mw.sc_1.draw()
+        self.mw.label.setStyleSheet("color: rgb(255, 0, 0)")
+
+        draw_graph(self.mw.sc_1, self.mw.md.adjusted.x, self.mw.md.adjusted.y, "Исходный", "E", "I")
 
         self.visual_controler(False, [0, 1, 2, 3, 4, 6, 7, 8, 9])
         self.mw.points = []
@@ -45,13 +38,8 @@ class ButtonListeners:
                 self.mw.spline_display_radio_button.setChecked(True)
                 self.mw.label.setStyleSheet("color: rgb(0, 255, 0)")
                 self.mw.label.setText("ON ")
-                self.mw.sc_1.axes.clear()
-                self.mw.sc_1.axes.plot(self.mw.md.spline.x, self.mw.md.spline.y, label="Сплайн")
-                self.mw.sc_1.axes.legend(loc='lower right')
-                self.mw.sc_1.axes.grid()
-                self.mw.sc_1.axes.set_xlabel("E")
-                self.mw.sc_1.axes.set_ylabel("I")
-                self.mw.sc_1.draw()
+
+                draw_graph(self.mw.sc_1, self.mw.md.spline.x, self.mw.md.spline.y, "Сплайн", "E", "I")
 
                 self.visual_controler(True, [2, 3, 7])
             else:
@@ -67,12 +55,9 @@ class ButtonListeners:
             s = round(float(self.mw.lineEdit_2.text()), 2)
             if s * 100 in range(1, 50001):
                 perform_area_correction(s, self.mw.md)
-                self.mw.sc_1.axes.plot(self.mw.md.adjusted.x, self.mw.md.adjusted.y, label="Исходный")
-                self.mw.sc_1.axes.legend(loc='lower right')
-                self.mw.sc_1.axes.set_xlabel("E")
-                self.mw.sc_1.axes.set_ylabel("I")
-                self.mw.sc_1.axes.grid()
-                self.mw.sc_1.draw()
+
+                draw_graph(self.mw.sc_1, self.mw.md.adjusted.x, self.mw.md.adjusted.y, "Исходный", "E", "I")
+
             else:
                 QMessageBox.critical(self.mw, "Ошибка ", "Выход из диапозона значений в разделе \"Площадь электрода\"",
                                      QMessageBox.Ok)
@@ -98,7 +83,9 @@ class ButtonListeners:
                 th2 = CustomThread(500, 1001, arr2, x, y)
 
                 th1.run()
+                th1.setDaemon(True)
                 th2.run()
+                th2.setDaemon(True)
 
                 self.mw.md.b = arr1 + arr2
 
@@ -121,6 +108,7 @@ class ButtonListeners:
                 self.mw.sc_2.axes.set_ylabel("Y = 2.3*Rp*i")
                 self.mw.sc_2.axes.grid()
                 self.mw.sc_2.draw()
+                self.mw.sc_2.fig.tight_layout()
 
                 self.mw.md.B = calculate_b(self.mw.md)
                 self.mw.md.I_cor = calculate_i_cor(self.mw.md)
@@ -143,22 +131,14 @@ class ButtonListeners:
     def click_radio_b(self):
         status = False
         if len(self.mw.md.spline.x) > 0:
-            self.mw.sc_1.axes.clear()
             if self.mw.spline_display_radio_button.isChecked():
-                self.mw.sc_1.axes.plot(self.mw.md.spline.x, self.mw.md.spline.y, label="Сплайн")
-                self.mw.sc_1.axes.legend(loc='lower right')
+                draw_graph(self.mw.sc_1, self.mw.md.spline.x, self.mw.md.spline.y, "Сплайн", "E", "I")
                 self.mw.label.setStyleSheet("color: rgb(0, 255, 0)")
                 self.mw.label.setText("ON ")
             else:
-                self.mw.sc_1.axes.plot(self.mw.md.adjusted.x, self.mw.md.adjusted.y, label="Исходный")
-                self.mw.sc_1.axes.legend(loc='lower right')
+                draw_graph(self.mw.sc_1, self.mw.md.adjusted.x, self.mw.md.adjusted.y, "Исходный", "E", "I")
                 self.mw.label.setStyleSheet("color: rgb(255, 0, 0)")
                 self.mw.label.setText("OFF")
-            self.mw.sc_1.axes.grid()
-            self.mw.sc_1.axes.legend(loc='lower right')
-            self.mw.sc_1.axes.set_xlabel("E")
-            self.mw.sc_1.axes.set_ylabel("I")
-            self.mw.sc_1.draw()
             status = True
         else:
             self.mw.spline_display_radio_button.setChecked(False)
@@ -186,15 +166,10 @@ class ButtonListeners:
                 if len(x) > 15:
                     self.mw.md.adjusted.x = x
                     self.mw.md.adjusted.y = y
-                    self.mw.sc_1.axes.clear()
-                    self.mw.sc_1.axes.plot(x, y, label="Входной")
-                    self.mw.sc_1.axes.legend(loc='lower right')
-                    self.mw.sc_1.axes.set_xlabel("E")
-                    self.mw.sc_1.axes.set_ylabel("I")
-                    self.mw.sc_1.axes.grid()
-                    self.visual_controler(True)
-                    self.mw.sc_1.draw()
 
+                    draw_graph(self.mw.sc_1, x, y, "Входной", "E", "I")
+
+                    self.visual_controler(True)
                     self.mw.md.input.x = self.mw.md.input.x[nums[0]:nums[1] + 1]
                     self.mw.md.input.y = self.mw.md.input.y[nums[0]:nums[1] + 1]
                 else:
@@ -227,13 +202,8 @@ class ButtonListeners:
                     s = round(float(self.mw.lineEdit_2.text()), 2)
                     if s * 100 in range(1, 50001):
                         self.mw.md.adjusted = perform_area_correction(s, self.mw.md)
-                        self.mw.sc_1.axes.clear()
-                        self.mw.sc_1.axes.plot(self.mw.md.adjusted.x, self.mw.md.adjusted.y, label="Входной")
-                        self.mw.sc_1.axes.legend(loc='lower right')
-                        self.mw.sc_1.axes.set_xlabel("E")
-                        self.mw.sc_1.axes.set_ylabel("I")
-                        self.mw.sc_1.axes.grid()
-                        self.mw.sc_1.draw()
+
+                        draw_graph(self.mw.sc_1, self.mw.md.adjusted.x, self.mw.md.adjusted.y, "Входной", "E", "I")
 
                         self.visual_controler(True, [4, 2, 0, 8, 9])
 
