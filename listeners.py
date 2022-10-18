@@ -92,41 +92,43 @@ class ButtonListeners:
                 th2.setDaemon(True)
 
                 self.mw.md.b = arr1 + arr2
+                if len(self.mw.md.b) > 0:
 
-                self.mw.sc_2.axes.clear()
-                self.mw.sc_2.axes.plot(self.mw.md.expired.x, self.mw.md.expired.y, label="Эксперимент")
-                self.mw.sc_2.draw()
+                    f = new_sequence(self.mw.md, self.mw.md.expired.x)
+                    lq = calculate_between(f, self.mw.md)
+                    map_key = search_min_map_num(lq)
 
-                f = new_sequence(self.mw.md, self.mw.md.expired.x)
-                lq = calculate_between(f, self.mw.md)
-                map_key = search_min_map_num(lq)
+                    self.mw.md.b_c = map_key[1]
+                    self.mw.md.b_a = map_key[0]
 
-                self.mw.md.b_a = map_key[0]
-                self.mw.md.b_c = map_key[1]
+                    self.mw.md.selection = Graph(self.mw.md.expired.x, f[map_key])
 
-                self.mw.md.selection = Graph(self.mw.md.expired.x, f[map_key])
+                    self.mw.sc_2.axes.clear()
+                    self.mw.sc_2.axes.plot(self.mw.md.expired.x, self.mw.md.expired.y, label="Эксперимент")
+                    self.mw.sc_2.draw()
 
-                self.mw.sc_2.axes.plot(self.mw.md.selection.x, self.mw.md.selection.y, label="Подбор")
-                self.mw.sc_2.axes.legend(loc='lower right')
-                self.mw.sc_2.axes.set_xlabel("ΔE")
-                self.mw.sc_2.axes.set_ylabel("Y = 2.3*Rp*i")
-                self.mw.sc_2.axes.grid()
-                self.mw.sc_2.draw()
-                self.mw.sc_2.fig.tight_layout()
+                    self.mw.sc_2.axes.plot(self.mw.md.selection.x, self.mw.md.selection.y, label="Подбор")
+                    self.mw.sc_2.axes.legend(loc='lower right')
+                    self.mw.sc_2.axes.set_xlabel("ΔE")
+                    self.mw.sc_2.axes.set_ylabel("Y = 2.3*Rp*i")
+                    self.mw.sc_2.axes.grid()
+                    self.mw.sc_2.draw()
+                    self.mw.sc_2.fig.tight_layout()
 
-                self.mw.md.B = calculate_b(self.mw.md)
-                self.mw.md.I_cor = calculate_i_cor(self.mw.md)
+                    self.mw.md.B = calculate_b(self.mw.md)
+                    self.mw.md.I_cor = calculate_i_cor(self.mw.md)
 
-                self.mw.label_7.setText(str(round(self.mw.md.E_cor, 1)))
-                self.mw.label_10.setText(str(round(self.mw.md.derivative, 0)))
-                self.mw.label_13.setText(str(self.mw.md.b_a))
-                self.mw.label_16.setText(str(self.mw.md.b_c))
-                self.mw.label_20.setText(str(round(self.mw.md.B, 1)))
-                self.mw.label_23.setText(str(round(self.mw.md.I_cor, 4)))
-                self.mw.label_27.setText(str(round(calculate_deviation(self.mw.md), 3)))
+                    self.mw.label_7.setText(str(round(self.mw.md.E_cor, 1)))
+                    self.mw.label_10.setText(str(round(self.mw.md.derivative, 0)))
+                    self.mw.label_13.setText(str(self.mw.md.b_a))
+                    self.mw.label_16.setText(str(self.mw.md.b_c))
+                    self.mw.label_20.setText(str(round(self.mw.md.B, 1)))
+                    self.mw.label_23.setText(str(round(self.mw.md.I_cor, 4)))
+                    self.mw.label_27.setText(str(round(calculate_deviation(self.mw.md), 3)))
 
-                self.mw.calculate_button.setEnabled(True)
-
+                    self.mw.calculate_button.setEnabled(True)
+                else:
+                    QMessageBox.information(self.mw, "Информация", "Для данного промежутка подбор не был найдет")
             else:
                 QMessageBox.critical(self.mw, "Ошибка ",
                                      "Выход из диапозона значений в разделе \"Интервал дифференцирования\"",
