@@ -1,5 +1,3 @@
-import time
-
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Thread import CustomThread

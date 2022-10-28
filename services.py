@@ -115,7 +115,7 @@ def calculate_between(m, graph: GraphModel):
     mapa = {}
     for i in m:
         nums = subtract_arrays(m[i], graph.expired.y)
-        mapa[i] = sum(nums)
+        mapa[i] = np.sum(nums) ** 0.5
     return mapa
 
 
@@ -134,7 +134,7 @@ def search_index(arr, value):
     num = 999
     ex = 0
     for i in range(len(arr)):
-        curr = abs(arr[i] - value)
+        curr = np.abs(arr[i] - value)
         if curr < num:
             num = curr
             ex = i
@@ -152,21 +152,22 @@ def calculate_i_cor(graph: GraphModel):
 
 
 def calculate_deviation(graph: GraphModel):
-    points_deviation = []
-    for i in range(len(graph.selection.x)):
-        y = graph.expired.y[i]
-        y_new = graph.selection.y[i]
-        if y_new == 0:
-            y_new = 0.1
-        points_deviation.append(np.abs(y - y_new) / np.abs(y_new))
-    deviation = np.sum(points_deviation) / len(points_deviation) * 100
-    return deviation
+    # points_deviation = []
+    # for i in range(len(graph.selection.x)):
+    y_e = graph.expired.y
+    y_s = graph.selection.y
+    #     if y_new == 0:
+    #         y_new = 0.1
+    #     points_deviation.append(np.abs(y - y_new) / np.abs(y_new))
+    # deviation = np.sum(points_deviation) / len(points_deviation) * 100
+    return np.sum(subtract_arrays(y_s, y_e)) ** 0.5
+    # return deviation
 
 
 def subtract_arrays(list_1, list_2):
     result_list = []
     for i in range(len(list_1) - 1):
-        result_list.append(abs(list_1[i] - list_2[i]))
+        result_list.append((list_1[i] - list_2[i]) ** 2)
     return result_list
 
 
@@ -174,7 +175,10 @@ def search_min_map_num(lq):
     map_key = ""
     value = 9999
     for i in lq:
-        if lq[i] <= value:
+        if lq[i] < value:
             value = lq[i]
             map_key = i
+    # print(map_key)
+    # print(lq)
+    # print(max(lq, key=lq.get))
     return map_key
