@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'project_chemistryvPWlnL.ui'
+## Form generated from reading UI file 'project_chemistryoVKSDW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 
 class Ui_MainWindow(object):
@@ -183,7 +182,7 @@ class Ui_MainWindow(object):
         self.label_11 = QLabel(self.centralwidget)
         self.label_11.setObjectName(u"label_11")
 
-        self.gridLayout.addWidget(self.label_11, 11, 11, 1, 1)
+        self.gridLayout.addWidget(self.label_11, 11, 11, 1, 1, Qt.AlignBottom)
 
         self.label_22 = QLabel(self.centralwidget)
         self.label_22.setObjectName(u"label_22")
@@ -271,18 +270,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addItem(self.verticalSpacer_2, 9, 10, 1, 1)
 
-        self.widget_2 = QWidget(self.centralwidget)
-        self.widget_2.setObjectName(u"widget_2")
-        self.widget_2.setMaximumSize(QSize(550, 16777215))
-        self.gridLayoutWidget_2 = QWidget(self.widget_2)
-        self.gridLayoutWidget_2.setObjectName(u"gridLayoutWidget_2")
-        self.gridLayoutWidget_2.setGeometry(QRect(0, 0, 2, 2))
-        self.gridLayout_3 = QGridLayout(self.gridLayoutWidget_2)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
-
-        self.gridLayout.addWidget(self.widget_2, 10, 0, 9, 8)
-
         self.label_24 = QLabel(self.centralwidget)
         self.label_24.setObjectName(u"label_24")
 
@@ -329,18 +316,24 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.fault, 7, 9, 1, 1)
 
+        self.widget_2 = QWidget(self.centralwidget)
+        self.widget_2.setObjectName(u"widget_2")
+        self.widget_2.setMaximumSize(QSize(1000, 16777215))
+        self.gridLayoutWidget_2 = QWidget(self.widget_2)
+        self.gridLayoutWidget_2.setObjectName(u"gridLayoutWidget_2")
+        self.gridLayoutWidget_2.setGeometry(QRect(0, 0, 2, 2))
+        self.gridLayout_3 = QGridLayout(self.gridLayoutWidget_2)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+
+        self.gridLayout.addWidget(self.widget_2, 9, 0, 10, 8)
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 796, 21))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -352,28 +345,45 @@ class Ui_MainWindow(object):
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"mV", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"mV", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"mv", None))
-        self.open_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0444\u0430\u0439\u043b", None))
+        self.open_button.setText(QCoreApplication.translate("MainWindow",
+                                                            u"\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0444\u0430\u0439\u043b",
+                                                            None))
         self.cut_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u043e\u0440", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"ba = ", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"B =", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u043b\u0432\u043e \u0443\u0437\u043b\u043e\u0432 \u0441\u043f\u043b\u0430\u0439\u043d\u0430  [5...100]]", None))
-        self.label_30.setText(QCoreApplication.translate("MainWindow", u"\u0418\u043d\u0442\u0435\u0440\u0432\u0430\u043b \u0434\u0438\u0444\u0444\u0435\u0440\u0435\u043d\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, mV  [1...10]", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043b\u043e\u0449\u0430\u0434\u044c \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u0434\u0430 \u0441\u043c^2  [0.01...500.0]", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow",
+                                                        u"\u041a\u043e\u043b\u0432\u043e \u0443\u0437\u043b\u043e\u0432 \u0441\u043f\u043b\u0430\u0439\u043d\u0430  [5...100]]",
+                                                        None))
+        self.label_30.setText(QCoreApplication.translate("MainWindow",
+                                                         u"\u0418\u043d\u0442\u0435\u0440\u0432\u0430\u043b \u0434\u0438\u0444\u0444\u0435\u0440\u0435\u043d\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, mV  [1...10]",
+                                                         None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow",
+                                                        u"\u041f\u043b\u043e\u0449\u0430\u0434\u044c \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u0434\u0430 \u0441\u043c^2  [0.01...500.0]",
+                                                        None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Ecor =", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0442\u043d\u043e\u0441.\u043e\u0442\u043a\u043b\u043e\u043d\u0435\u043d\u0438\u0435", None))
-        self.spline_display_radio_button.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043f\u043b\u0430\u0439\u043d", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow",
+                                                         u"\u041e\u0442\u043d\u043e\u0441.\u043e\u0442\u043a\u043b\u043e\u043d\u0435\u043d\u0438\u0435",
+                                                         None))
+        self.spline_display_radio_button.setText(
+            QCoreApplication.translate("MainWindow", u"\u0421\u043f\u043b\u0430\u0439\u043d", None))
         self.label_28.setText(QCoreApplication.translate("MainWindow", u"%", None))
         self.lineEdit_2.setText(QCoreApplication.translate("MainWindow", u"34.54", None))
+        self.fault.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0431\u0440\u043e\u0441", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u03a9*\u0441\u043c^2", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"icor =", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.lineEdit.setText(QCoreApplication.translate("MainWindow", u"10", None))
-        self.label_32.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442\u0435 \u0441 \u0444\u0430\u0439\u043b\u043e\u043c", None))
+        self.label_32.setText(QCoreApplication.translate("MainWindow",
+                                                         u"\u0412\u044b \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442\u0435 \u0441 \u0444\u0430\u0439\u043b\u043e\u043c",
+                                                         None))
         self.label_33.setText("")
-        self.spline_button.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0434\u0435\u043b\u0430\u0442\u044c \u0441\u043f\u043b\u0430\u0439\u043d", None))
+        self.spline_button.setText(QCoreApplication.translate("MainWindow",
+                                                              u"\u0421\u0434\u0435\u043b\u0430\u0442\u044c \u0441\u043f\u043b\u0430\u0439\u043d",
+                                                              None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"(0)", None))
-        self.calculate_button.setText(QCoreApplication.translate("MainWindow", u"\u0420\u0430\u0441\u0447\u0435\u0442", None))
+        self.calculate_button.setText(
+            QCoreApplication.translate("MainWindow", u"\u0420\u0430\u0441\u0447\u0435\u0442", None))
         self.lineEdit_3.setText(QCoreApplication.translate("MainWindow", u"3", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"OFF", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Rp = ", None))
@@ -382,7 +392,8 @@ class Ui_MainWindow(object):
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"(0)", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"mV", None))
-        self.change_button.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u043b\u043e\u0449\u0430\u0434\u044c", None))
+        self.change_button.setText(QCoreApplication.translate("MainWindow",
+                                                              u"\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043f\u043b\u043e\u0449\u0430\u0434\u044c",
+                                                              None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"%", None))
     # retranslateUi
-

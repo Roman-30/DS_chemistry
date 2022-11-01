@@ -50,6 +50,8 @@ class UiMainWindow(QMainWindow, Ui_MainWindow):
 
         self.md = GraphModel()
 
+        self.fault.setEnabled(False)
+
         self.listener = ButtonListeners(self)
         self.listener.butt_func()
         self.listener.visual_controler(False, [0, 2, 3, 4, 5, 7, 8, 9])

@@ -54,7 +54,7 @@ class ButtonListeners:
             self.mw.sc_1.axes.clear()
             s = round(float(self.mw.lineEdit_2.text()), 2)
             if s * 100 in range(1, 50001):
-                perform_area_correction(s, self.mw.md)
+                self.mw.md.adjusted = perform_area_correction(s, self.mw.md)
 
                 draw_graph(self.mw.sc_1, self.mw.md.adjusted.x, self.mw.md.adjusted.y, "Исходный", "E", "I")
 
@@ -71,18 +71,31 @@ class ButtonListeners:
             num = int(self.mw.lineEdit_3.text())
             if num in range(1, 11):
                 self.mw.calculate_button.setEnabled(False)
-
                 self.mw.md.derivative = calculate_point_derivative(self.mw.md, num)
                 self.mw.md.expired = calculate_final_graph(self.mw.md)
-
+                self.mw.label_7.setText(str(round(self.mw.md.E_cor, 1)))
+                self.mw.label_10.setText(str(round(self.mw.md.derivative, 0)))
                 x = self.mw.md.expired.x
                 y = self.mw.md.expired.y
-
                 arr1 = []
                 arr2 = []
 
-                th1 = CustomThread(4, 500, arr1, x, y)
-                th2 = CustomThread(500, 1001, arr2, x, y)
+                fault = 1
+
+                try:
+                    fault = int(self.mw.fault.text())
+                    if fault <= 0 or fault >= 100:
+                        QMessageBox.critical(self.mw, "Ошибка ",
+                                             "Выход из диапозона значений погрешности расчета",
+                                             QMessageBox.Ok)
+                        fault = 1
+                except:
+                    QMessageBox.critical(self.mw, "Ошибка ",
+                                         "Некорректные данные погрешности расчета",
+                                         QMessageBox.Ok)
+
+                th1 = CustomThread(4, 500, arr1, x, y, fault)
+                th2 = CustomThread(500, 1001, arr2, x, y, fault)
 
                 th1.run()
                 th1.setDaemon(True)
@@ -116,8 +129,6 @@ class ButtonListeners:
                     self.mw.md.B = calculate_b(self.mw.md)
                     self.mw.md.I_cor = calculate_i_cor(self.mw.md)
 
-                    self.mw.label_7.setText(str(round(self.mw.md.E_cor, 1)))
-                    self.mw.label_10.setText(str(round(self.mw.md.derivative, 0)))
                     self.mw.label_13.setText(str(self.mw.md.b_a))
                     self.mw.label_16.setText(str(self.mw.md.b_c))
                     self.mw.label_20.setText(str(round(self.mw.md.B, 1)))
@@ -127,6 +138,8 @@ class ButtonListeners:
                     self.mw.calculate_button.setEnabled(True)
                 else:
                     QMessageBox.information(self.mw, "Информация", "Для данного промежутка подбор не был найдет")
+                    self.mw.fault.setEnabled(True)
+                    self.mw.calculate_button.setEnabled(True)
             else:
                 QMessageBox.critical(self.mw, "Ошибка ",
                                      "Выход из диапозона значений в разделе \"Интервал дифференцирования\"",
@@ -170,7 +183,7 @@ class ButtonListeners:
             if nums[1] - nums[0] > 0:
                 x = self.mw.md.adjusted.x[nums[0]:nums[1] + 1]
                 y = self.mw.md.adjusted.y[nums[0]:nums[1] + 1]
-                if len(x) > 15:
+                if len(x) > 30:
                     self.mw.md.adjusted.x = x
                     self.mw.md.adjusted.y = y
 
@@ -179,10 +192,13 @@ class ButtonListeners:
                     self.visual_controler(True)
                     self.mw.md.input.x = self.mw.md.input.x[nums[0]:nums[1] + 1]
                     self.mw.md.input.y = self.mw.md.input.y[nums[0]:nums[1] + 1]
+
+                    self.visual_controler(False, [2, 3, 5, 7])
                 else:
-                    self.visual_controler(True)
                     QMessageBox.critical(self.mw, "Ошибка ", "Выбран критически большой диапозон",
                                          QMessageBox.Ok)
+                    self.visual_controler(True, [0, 1, 4, 8, 9])
+                    self.mw.cancel_button.setEnabled(False)
             else:
                 self.visual_controler(True)
                 QMessageBox.critical(self.mw, "Ошибка ", "Некорректный выбор точек",
@@ -195,11 +211,14 @@ class ButtonListeners:
             self.mw.widgets.get(wid).setEnabled(state)
 
     def open_file(self):
-        self.visual_controler(False, [4])
-
         file_path = QFileDialog.getOpenFileName()
         file_name = get_file_name(file_path[0])
         file_type = get_file_type(file_name)
+
+        self.visual_controler(False, [4])
+        self.mw.fault.setText("1")
+        self.mw.fault.setEnabled(False)
+
         if file_path[0] == '' or not (file_type in ['dat', 'txt']):
             QMessageBox.critical(self.mw, "Ошибка", "Файл не был выбран!", QMessageBox.Ok)
         else:

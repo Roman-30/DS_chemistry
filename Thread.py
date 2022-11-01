@@ -4,13 +4,14 @@ import numpy as np
 
 
 class CustomThread(Thread):
-    def __init__(self, _from, to, arr, x, y):
+    def __init__(self, _from, to, arr, x, y, fault):
         Thread.__init__(self)
         self._from = _from
         self.to = to
         self.arr = arr
         self.x = x
         self.y = y
+        self.fault = fault
 
     def run(self):
 
@@ -23,8 +24,8 @@ class CustomThread(Thread):
         x2 = self.x[num2]
         y2 = np.abs(self.y[num2])
 
-        y1_err = np.abs(y) * 0.99
-        y2_err = np.abs(y2) * 0.99
+        y1_err = np.abs(y) * (100 - self.fault) / 100
+        y2_err = np.abs(y2) * (100 - self.fault) / 100
 
         for i in range(self._from, self.to):
             for j in range(self._from, self.to):
